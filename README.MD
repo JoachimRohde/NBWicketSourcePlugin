@@ -7,7 +7,7 @@ It speeds up Wicket development by providing click-through from browser HTML bac
 
 ### Plugin Installation
 
-At the moment you have to build the plugin from the sources. I will try to upload to NetBeans plugin portal in the near future.
+At the moment you have to build the plugin from the sources. I uploaded the plugin to the NetBeans plugin portal today (25.08.2016), so it should be available within the next few days.
 
 ### Add Wicket-Source to your project
 
@@ -17,15 +17,13 @@ At the moment you have to build the plugin from the sources. I will try to uploa
 2. Visit the Chrome Web Store and search for wicket to find the chrome plugin.
 
 3. Install the NetBeans plugin. The plugin adds a button to the toolbar where you can start and stop listening to requests coming from the Chrome plugin.
-Make sure that your project is open within NetBeans.
 
 See the [original Wiki page](https://github.com/jennybrown8/wicket-source/wiki) for deeper details.
 
-### TODOs / Limitations
+### Further notes
 
 At the moment no configuration is possible. That means: no password protection, no possibility for changing the default port to anything other than 9123.
 I don't know if this is coming any time soon since I don't need it myself. 
-As I mentioned I will try to get the plugin published at NetBeans plugin portal in the near future.
 
 ### Acknowledgement
 
