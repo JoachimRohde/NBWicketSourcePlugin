@@ -59,10 +59,12 @@ public class HttpListener implements Runnable
     private static final Logger LOG = Logger.getLogger(HttpListener.class.getName());
 
     private final ServerSocket serverSocket;
+    private final String configuredPassword;
 
-    public HttpListener(ServerSocket serverSocket)
+    public HttpListener(ServerSocket serverSocket, String submittedPassword)
     {
         this.serverSocket = serverSocket;
+        this.configuredPassword = submittedPassword;
     }
 
     private void navigateTo(String name, int lineNumber)
@@ -154,24 +156,31 @@ public class HttpListener implements Runnable
             LOG.log(Level.FINE, "Received request: {0}", requestString);
             Map<String, String> parameters = getParametersFromUrl(requestParts[1]);
             String src = parameters.get("src") != null ? decode(parameters.get("src").trim(), "UTF-8") : "";
+            String submittedPassword = parameters.get("p") != null ? decode(parameters.get("p").trim(), "UTF-8") : "";
             LOG.log(Level.FINEST, "src parameter: {0}", src);
 
-            // split the src parameter (e.g.: com.example.mypackage:Foo:42) into it's parts
-            String[] pieces = src.split(":");
-            if (pieces.length == 3)
+            if (submittedPassword != null && !submittedPassword.isEmpty() && !submittedPassword.equals(configuredPassword))
             {
-                String packageName = pieces[0];
-                String fileName = pieces[1].replace(".java", "").replace(".scala", "");
-                int lineNumber = 1;
-                try
+                LOG.info("passwords do not match}");
+            } else
+            {
+                // split the src parameter (e.g.: com.example.mypackage:Foo:42) into it's parts
+                String[] pieces = src.split(":");
+                if (pieces.length == 3)
                 {
-                    lineNumber = Integer.parseInt(pieces[2]);
-                } catch (NumberFormatException numberFormatException)
-                {
-                    // do nothing, jump to the first line
-                }
+                    String packageName = pieces[0];
+                    String fileName = pieces[1].replace(".java", "").replace(".scala", "");
+                    int lineNumber = 1;
+                    try
+                    {
+                        lineNumber = Integer.parseInt(pieces[2]);
+                    } catch (NumberFormatException numberFormatException)
+                    {
+                        // do nothing, jump to the first line
+                    }
 
-                navigateTo(packageName + "." + fileName, lineNumber);
+                    navigateTo(packageName + "." + fileName, lineNumber);
+                }
             }
         }
 

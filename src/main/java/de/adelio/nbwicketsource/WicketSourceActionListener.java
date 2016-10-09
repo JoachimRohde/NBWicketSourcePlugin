@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.util.logging.Logger;
+import java.util.prefs.Preferences;
 import javax.swing.AbstractAction;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
@@ -28,6 +29,7 @@ import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.awt.ActionRegistration;
 import org.openide.util.NbBundle.Messages;
+import org.openide.util.NbPreferences;
 
 @ActionID(
         category = "Debug",
@@ -62,12 +64,24 @@ public final class WicketSourceActionListener extends AbstractAction implements 
      */
     private void toggleRunningState()
     {
-        final int port = DEFAULT_PORT;
+        int port = DEFAULT_PORT;
+        String password = null;
         InetSocketAddress inetSocketAddress = null;
         try
         {
             if (!running)
             {
+                Preferences pref = NbPreferences.forModule(WicketSourcePanel.class);
+                String customPort = pref.get("port", ""+DEFAULT_PORT);
+                password = pref.get("password", "");
+                try
+                {
+                    port = Integer.parseInt(customPort);
+                } catch (NumberFormatException numberFormatException)
+                {
+                    port = DEFAULT_PORT;
+                }
+
                 serverSocket = new ServerSocket();
                 inetSocketAddress = new InetSocketAddress("localhost", port);
                 serverSocket.bind(inetSocketAddress);
@@ -95,7 +109,7 @@ public final class WicketSourceActionListener extends AbstractAction implements 
             return;
         }
 
-        HttpListener messageNotifier = new HttpListener(serverSocket);
+        HttpListener messageNotifier = new HttpListener(serverSocket, password);
         listener = new Thread(messageNotifier);
         listener.start();
     }

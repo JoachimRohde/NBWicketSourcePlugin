@@ -21,11 +21,15 @@ In the meanwhile you can find a pre-compiled version in the releases directory.
 
 See the [original Wiki page](https://github.com/jennybrown8/wicket-source/wiki) for deeper details.
 
-### Further notes
+### Configuration
 
-At the moment no configuration is possible. That means: no password protection, no possibility for changing the default port to anything other than 9123.
-I don't know if this is coming any time soon since I don't need it myself. 
+You can configure the port and a password in NetBeans under "Tools / Options / Miscellaneous / Wicket Source".
 
 ### Acknowledgement
 
 This code used George Armholds [wicket-source-intellij](https://github.com/armhold/wicket-source-intellij) project for inspiration
+
+### Changelog
+
+Version 0.2 - Added configuration dialog for port and password configuration
+Version 0.1 - Initial release
