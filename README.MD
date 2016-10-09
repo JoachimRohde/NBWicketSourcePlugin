@@ -32,4 +32,5 @@ This code used George Armholds [wicket-source-intellij](https://github.com/armho
 ### Changelog
 
 Version 0.2 - Added configuration dialog for port and password configuration
+
 Version 0.1 - Initial release
