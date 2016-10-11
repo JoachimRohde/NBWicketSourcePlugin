@@ -7,8 +7,7 @@ It speeds up Wicket development by providing click-through from browser HTML bac
 
 ### Plugin Installation
 
-At the moment you have to build the plugin from the sources. I uploaded the plugin to the NetBeans plugin portal today (25.08.2016), so it should be available within the next few days. 
-In the meanwhile you can find a pre-compiled version in the releases directory.
+The plugin is available via the [NetBeans Plugin Portal](http://plugins.netbeans.org/plugin/68421/). You can also find a pre-compiled version in the releases directory.
 
 ### Add Wicket-Source to your project
 
